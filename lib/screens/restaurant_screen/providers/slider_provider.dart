@@ -6,4 +6,10 @@ class SliderProvider with ChangeNotifier {
     'https://add.eventland.eu/uploads/1578513197-hQqmW.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT4G8qi5-o-0jzyG4Rylf8D2fJAxjvM4JSRhg&usqp=CAU'
   ];
+  double currentPosition = 0;
+
+  void setCurrentPosition(double position) {
+    currentPosition = position;
+    notifyListeners();
+  }
 }
