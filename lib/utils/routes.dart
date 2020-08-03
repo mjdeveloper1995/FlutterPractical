@@ -6,8 +6,8 @@ import 'package:practicalflutterapp/screens/restaurant_screen/restaurant_screen.
 class Routes {
   Routes._();
   // ignore: non_constant_identifier_names
-  static String restaurantScreen = '/restaurantScreen';
-  static String cartScreen = '/';
+  static String restaurantScreen = '/';
+  static String cartScreen = '/cartScreen';
   static String addOwnScreen = '/addOwnScreen';
 
   static Map<String, WidgetBuilder> routes(BuildContext context) {

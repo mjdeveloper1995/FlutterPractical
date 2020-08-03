@@ -1,61 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:practicalflutterapp/screens/restaurant_screen/providers/category_provider.dart';
+import 'package:provider/provider.dart';
 
-class HorizontalTab extends StatefulWidget {
-  @override
-  _HorizontalTabState createState() => _HorizontalTabState();
-}
-
-class _HorizontalTabState extends State<HorizontalTab> {
-  final List<String> _tabItems = [
-    'Bestseller',
-    'Soups',
-    'Main Course',
-    'Rice',
-    'Snacks'
-  ];
-  int position =0;
-
+class HorizontalTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 56,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: _tabItems.length,
-        itemBuilder: (context, index) {
-          return Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal:12.0),
-                child: Center(
-                  child: GestureDetector(
-                    onTap: (){
-                      setState(() {
-                        position = index;
-                      });
-                    },
-                    child: Text(
-                      _tabItems[index],
-                      style: const TextStyle(fontSize: 24.0),
+    return Consumer<CategoryProvider>(builder: (context, data, child) {
+      return Container(
+        width: double.infinity,
+        height: 56,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: data.tabItems.length,
+          itemBuilder: (context, index) {
+            return Stack(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        data.setPosition(index);
+                      },
+                      child: Text(
+                        data.tabItems[index],
+                        style: const TextStyle(fontSize: 24.0),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: index == position ? 2 :1,
-                  color: index == position ?Colors.blueAccent : Colors.grey,
-                ),
-              )
-            ],
-          );
-        },
-      ),
-    );
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: index == data.selectedPosition ? 2 : 1,
+                    color: index == data.selectedPosition
+                        ? Colors.blueAccent
+                        : Colors.grey,
+                  ),
+                )
+              ],
+            );
+          },
+        ),
+      );
+    });
   }
 }

@@ -1,16 +1,15 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:practicalflutterapp/screens/restaurant_screen/providers/data_provider.dart';
 import 'package:practicalflutterapp/screens/restaurant_screen/widget/custom_slider.dart';
 import 'package:practicalflutterapp/screens/restaurant_screen/widget/horizontal_tab.dart';
 import 'package:practicalflutterapp/screens/restaurant_screen/widget/info_widget.dart';
 import 'package:practicalflutterapp/screens/restaurant_screen/widget/list_widget.dart';
 import 'package:practicalflutterapp/utils/custom_appbar.dart';
+import 'package:provider/provider.dart';
 
 class RestaurantScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final List<String> _items = ['', '', '', '', '', '', ''];
     return Scaffold(
       appBar: customAppBar(
         context,
@@ -34,14 +33,16 @@ class RestaurantScreen extends StatelessWidget {
             CustomSlider(),
             InfoWidget(),
             HorizontalTab(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: _items.length,
-                itemBuilder: (context, index) {
-                  return ListWidget();
-                },
-              ),
-            )
+            Consumer<DataProvider>(builder: (context, data, child) {
+              return Expanded(
+                child: ListView.builder(
+                  itemCount: data.items.length,
+                  itemBuilder: (context, index) {
+                    return ListWidget();
+                  },
+                ),
+              );
+            })
           ],
         ),
       ),
